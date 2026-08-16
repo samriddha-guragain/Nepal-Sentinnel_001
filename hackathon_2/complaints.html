@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complaints Management Inbox - Admin</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom Admin CSS -->
+    <link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+
+    <!-- Top Navigation Header -->
+    <header class="admin-header">
+        <div class="logo-area">
+            <i class="fa-solid fa-inbox"></i>
+            <h1>Complaints Inbox</h1>
+        </div>
+        <div class="header-right">
+            <a href="map.html" class="nav-btn" style="background-color: #0d9488;">
+                <i class="fa-solid fa-map-location-dot"></i> Live Map & Danger Center
+            </a>
+            <a href="admin.html" class="nav-btn secondary">
+                <i class="fa-solid fa-gauge"></i> Back to Dashboard
+            </a>
+        </div>
+    </header>
+
+    <!-- Gmail-Style Layout Container -->
+    <div class="gmail-layout">
+
+        <!-- Sidebar Navigation -->
+        <aside class="gmail-sidebar">
+            <button class="sidebar-tab active" data-filter="all">
+                <i class="fa-solid fa-layer-group"></i> All Crimes <span class="badge" id="countAll">0</span>
+            </button>
+            <button class="sidebar-tab" data-filter="pending">
+                <i class="fa-solid fa-clock"></i> Pending Crimes <span class="badge" id="countPending">0</span>
+            </button>
+            <button class="sidebar-tab" data-filter="approved">
+                <i class="fa-solid fa-circle-check"></i> Approved Crimes <span class="badge" id="countApproved">0</span>
+            </button>
+            <button class="sidebar-tab" data-filter="rejected">
+                <i class="fa-solid fa-trash-can"></i> Not Approved / Trash <span class="badge"
+                    id="countRejected">0</span>
+            </button>
+        </aside>
+
+        <!-- Main Email List Pane -->
+        <section class="gmail-main-pane">
+            <div class="pane-header">
+                <h2 id="currentCategoryTitle">All Complaints</h2>
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Search complaints by location or crime type...">
+                </div>
+            </div>
+
+            <!-- Gmail Email Rows Container -->
+            <div id="gmailListContainer" class="gmail-email-list">
+                <div class="loading-text">Loading complaints inbox...</div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <!-- Complaints Inbox JS -->
+    <script src="complaints.js"></script>
+</body>
+
+</html>

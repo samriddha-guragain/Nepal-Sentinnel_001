@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Command Center - Kathmandu Crime Portal</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom Admin CSS -->
+    <link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+
+    <!-- Top Navigation Header -->
+    <header class="admin-header">
+        <div class="logo-area">
+            <i class="fa-solid fa-user-shield"></i>
+            <h1>Admin Command Center</h1>
+        </div>
+        <div class="header-right">
+            <a href="map.html" class="nav-btn" style="background-color: #0d9488;">
+                <i class="fa-solid fa-map-location-dot"></i> Live Map & Danger Center
+            </a>
+            <a href="complaints.html" class="nav-btn" title="View Complaints Inbox">
+                <i class="fa-solid fa-envelope-open-text"></i> Complaints Management Tab
+            </a>
+            <a href="index.html" class="nav-btn secondary" title="Back to Public Portal">
+                <i class="fa-solid fa-arrow-left"></i> Public Portal
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Admin Container -->
+    <main class="admin-container">
+
+        <section class="dashboard-stats">
+            <div class="stat-card">
+                <h3>Pending Review Queue</h3>
+                <p id="pendingCount">0</p>
+            </div>
+        </section>
+
+        <section class="queue-section">
+            <h2>Incoming Complaints Requiring Action</h2>
+            <div id="pendingComplaintsContainer" class="complaints-grid">
+                <!-- Dynamic pending complaints loaded here -->
+                <p class="loading-text">Loading pending complaints from database...</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <!-- Admin JS -->
+    <script src="admin.js"></script>
+</body>
+
+</html>

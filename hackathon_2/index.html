@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureCrime Portal - Kathmandu</title>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+    <!-- Top Navigation Header -->
+    <header>
+        <div class="logo-area">
+            <i class="fa-solid fa-shield-halved"></i>
+            <h1>Kathmandu Crime Reporting Portal</h1>
+        </div>
+        <div class="header-right">
+            <div class="user-badge" id="userUIDBadge">Portal Active</div>
+            <button class="message-icon-btn" id="messageToggleBtn" title="View Submitted Complaints">
+                <i class="fa-solid fa-envelope"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content Layout -->
+    <div class="main-container">
+        
+        <!-- Left Section: Complaint Submission Form -->
+        <div class="form-section">
+            <h2 class="section-title">File an Incident Report</h2>
+            <form id="crimeForm">
+                
+                <div class="form-group">
+                    <label for="crimeType">Select Crime Type</label>
+                    <select id="crimeType" required>
+                        <option value="">-- Choose Incident Category --</option>
+                        <option value="Theft / Robbery">Theft / Robbery</option>
+                        <option value="Assault / Violence">Assault / Violence</option>
+                        <option value="Vandalism">Vandalism</option>
+                        <option value="Fraud / Scam">Fraud / Scam</option>
+                        <option value="Cybercrime">Cybercrime</option>
+                        <option value="Public Disturbance">Public Disturbance</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="kathmanduLocation">Location Area (Kathmandu)</label>
+                    <select id="kathmanduLocation" required>
+                        <option value="">-- Select Kathmandu Area --</option>
+                        <option value="Thamel">Thamel</option>
+                        <option value="Lainchaur">Lainchaur</option>
+                        <option value="Durbar Marg">Durbar Marg</option>
+                        <option value="Baneshwor">Baneshwor</option>
+                        <option value="Bouddha">Bouddha</option>
+                        <option value="Patan">Patan / Lalitpur</option>
+                        <option value="Koteshwor">Koteshwor</option>
+                        <option value="Maharajgunj">Maharajgunj</option>
+                        <option value="Balaju">Balaju</option>
+                        <option value="Kalanki">Kalanki</option>
+                    </select>
+                </div>
+
+                <!-- Day Selection (Calendar Date Input) -->
+                <div class="form-group">
+                    <label for="crimeDay">Select Day</label>
+                    <input type="date" id="crimeDay" required>
+                </div>
+
+                <!-- Time Selection -->
+                <div class="form-group">
+                    <label for="crimeTimeInput">Select Time</label>
+                    <input type="time" id="crimeTimeInput" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Exact Coordinates (Pinpointed from Map)</label>
+                    <div class="coord-display">
+                        <input type="text" id="latitude" placeholder="Latitude" readonly required>
+                        <input type="text" id="longitude" placeholder="Longitude" readonly required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="reporterName">Your Name (Optional)</label>
+                    <input type="text" id="reporterName" placeholder="Enter your name if willing">
+                </div>
+
+                <div class="form-group">
+                    <label for="reporterPhone">Contact Number (Optional)</label>
+                    <input type="tel" id="reporterPhone" placeholder="+977-98XXXXXXXX">
+                </div>
+
+                <button type="submit" class="submit-btn"><i class="fa-solid fa-paper-plane"></i> Submit Complaint</button>
+            </form>
+        </div>
+
+        <!-- Right Section: Leaflet Map -->
+        <div class="map-section">
+            <h3>Pinpoint Exact Location on Map</h3>
+            <div id="map"></div>
+        </div>
+
+    </div>
+
+    <!-- Message Drawer -->
+    <div class="drawer" id="complaintDrawer">
+        <div class="drawer-header">
+            <h3>Complaint Tracking</h3>
+            <button class="close-drawer" id="closeDrawerBtn"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="drawer-body" id="drawerBodyContent">
+            <p style="text-align: center; color: #666; margin-top: 30px;">System ready.</p>
+        </div>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <!-- Firebase App & Firestore SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+    <!-- Custom JS -->
+    <script src="index.js"></script>
+</body>
+</html>

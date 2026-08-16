@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Police Station Action Portal - Kathmandu</title>
+    <!-- Leaflet CSS & Routing Machine CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="action.css">
+</head>
+<body>
+
+    <!-- Station Login Screen Overlay -->
+    <div id="loginOverlay" class="login-overlay">
+        <div class="login-modal">
+            <div class="login-icon"><i class="fa-solid fa-building-shield"></i></div>
+            <h2>Police Department Station Login</h2>
+            <p>Select your assigned station and enter credentials</p>
+            
+            <form id="stationLoginForm" onsubmit="handleStationLogin(event)">
+                <div class="form-group">
+                    <label for="stationSelect">Select Police Station</label>
+                    <select id="stationSelect" required>
+                        <option value="">-- Choose Station --</option>
+                        <option value="Thamel">Thamel Station</option>
+                        <option value="Lainchaur">Lainchaur Station</option>
+                        <option value="Durbar Marg">Durbar Marg Station</option>
+                        <option value="Baneshwor">Baneshwor Station</option>
+                        <option value="Bouddha">Bouddha Station</option>
+                        <option value="Patan / Lalitpur">Patan / Lalitpur Station</option>
+                        <option value="Koteshwor">Koteshwor Station</option>
+                        <option value="Maharajgunj">Maharajgunj Station</option>
+                        <option value="Balaju">Balaju Station</option>
+                        <option value="Kalanki">Kalanki Station</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="stationPassword">Station Access Password</label>
+                    <input type="password" id="stationPassword" placeholder="Enter station passcode" required>
+                </div>
+
+                <button type="submit" class="btn-login">Access Station Dashboard</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Station Operations Dashboard (Hidden until login) -->
+    <div id="dashboardApp" class="dashboard-app" style="display: none;">
+        
+        <!-- Header -->
+        <header class="admin-header">
+            <div class="logo-area">
+                <i class="fa-solid fa-shield-halved"></i>
+                <h1 id="activeStationTitle">Station Dashboard</h1>
+            </div>
+            <div class="header-right">
+                <button class="nav-btn secondary" onclick="logoutStation()"><i class="fa-solid fa-right-from-bracket"></i> Switch Station</button>
+                <a href="admin.html" class="nav-btn"><i class="fa-solid fa-gauge"></i> Admin Panel</a>
+            </div>
+        </header>
+
+        <!-- Layout Body -->
+        <div class="portal-layout">
+            
+            <!-- Left Sidebar: Station Resources, Attendance & Assigned Complaints -->
+            <aside class="portal-sidebar">
+                
+                <!-- Resources Card -->
+                <div class="sidebar-section">
+                    <h3><i class="fa-solid fa-users-gear"></i> Station Resources & Attendance</h3>
+                    <div class="resources-display-box">
+                        <div class="resource-pill">
+                            <i class="fa-solid fa-user-police"></i>
+                            <div>
+                                <span class="res-label">Officers Present</span>
+                                <span class="res-value" id="dispOfficers">--</span>
+                            </div>
+                        </div>
+                        <div class="resource-pill">
+                            <i class="fa-solid fa-car-side"></i>
+                            <div>
+                                <span class="res-label">Vehicles Available</span>
+                                <span class="res-value" id="dispVehicles">--</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn-attendance" onclick="openAttendanceModal()">
+                        <i class="fa-solid fa-clipboard-user"></i> Submit Daily Attendance
+                    </button>
+                </div>
+
+                <!-- Assigned Complaints Queue -->
+                <div class="sidebar-section flex-grow">
+                    <h3><i class="fa-solid fa-list-check"></i> Approved Cases Assigned to You</h3>
+                    <div id="stationComplaintsContainer" class="complaints-list-scroll">
+                        <p class="loading-text">Loading assigned cases...</p>
+                    </div>
+                </div>
+
+            </aside>
+
+            <!-- Right Pane: Interactive Map & Fastest Route Finder -->
+            <main class="portal-map-pane">
+                <div class="map-top-bar">
+                    <span id="routeInfoText"><i class="fa-solid fa-route"></i> Select a crime case to generate fastest route navigation from station.</span>
+                </div>
+                <div id="map"></div>
+            </main>
+
+        </div>
+    </div>
+
+    <!-- Daily Attendance Modal -->
+    <div id="attendanceModal" class="modal-overlay" style="display: none;">
+        <div class="modal-card">
+            <h3><i class="fa-solid fa-clipboard-user"></i> Daily Station Attendance</h3>
+            <p>Record active personnel and vehicles available for today's deployment.</p>
+            
+            <div class="form-group">
+                <label for="attOfficers">Officers Present Today</label>
+                <input type="number" id="attOfficers" min="1" placeholder="e.g. 12">
+            </div>
+            <div class="form-group">
+                <label for="attVehicles">Vehicles Ready Today</label>
+                <input type="number" id="attVehicles" min="0" placeholder="e.g. 3">
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn-secondary" onclick="closeAttendanceModal()">Cancel</button>
+                <button class="btn-primary" onclick="submitAttendance()">Save Attendance</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Request Reassignment Modal -->
+    <div id="reassignModal" class="modal-overlay" style="display: none;">
+        <div class="modal-card">
+            <h3><i class="fa-solid fa-shuffle"></i> Request Reassignment</h3>
+            <p>Select another department station to transfer this case review.</p>
+            
+            <div class="form-group">
+                <label for="targetStationSelect">Transfer to Department</label>
+                <select id="targetStationSelect">
+                    <option value="Thamel">Thamel Station</option>
+                    <option value="Lainchaur">Lainchaur Station</option>
+                    <option value="Durbar Marg">Durbar Marg Station</option>
+                    <option value="Baneshwor">Baneshwor Station</option>
+                    <option value="Bouddha">Bouddha Station</option>
+                    <option value="Patan / Lalitpur">Patan / Lalitpur Station</option>
+                    <option value="Koteshwor">Koteshwor Station</option>
+                    <option value="Maharajgunj">Maharajgunj Station</option>
+                    <option value="Balaju">Balaju Station</option>
+                    <option value="Kalanki">Kalanki Station</option>
+                </select>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn-secondary" onclick="closeReassignModal()">Cancel</button>
+                <button class="btn-primary" onclick="confirmReassignment()">Submit Transfer Request</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Leaflet JS & Routing Machine JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <!-- Custom Action JS -->
+    <script src="action.js"></script>
+</body>
+</html>

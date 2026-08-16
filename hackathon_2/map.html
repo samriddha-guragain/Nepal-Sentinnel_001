@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Crime Map & Danger Center - Kathmandu Admin</title>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom Map CSS -->
+    <link rel="stylesheet" href="map.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="admin-header">
+        <div class="logo-area">
+            <i class="fa-solid fa-map-location-dot"></i>
+            <h1>Kathmandu Crime Map & Danger Center</h1>
+        </div>
+        <div class="header-right">
+            <a href="admin.html" class="nav-btn secondary"><i class="fa-solid fa-gauge"></i> Dashboard</a>
+            <a href="complaints.html" class="nav-btn"><i class="fa-solid envelope"></i> Complaints Inbox</a>
+        </div>
+    </header>
+
+    <!-- Map Layout Container -->
+    <div class="map-layout">
+
+        <!-- Left Sidebar (Matching Wireframe) -->
+        <aside class="map-sidebar">
+            <div class="sidebar-search-section">
+                <div class="search-title">
+                    <i class="fa-solid fa-location-dot"></i> Location Explorer
+                </div>
+                <div class="search-box-wrapper">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="mapSearchInput" placeholder="Search location...">
+                </div>
+                <select id="locationDropdown" class="location-select-dropdown">
+                    <option value="">-- Select Kathmandu Location --</option>
+                </select>
+            </div>
+
+            <!-- Locations List with Collapsible Dropdowns & Status Colors -->
+            <div class="locations-list-container" id="locationsListContainer">
+                <p class="loading-text">Loading locations & danger metrics...</p>
+            </div>
+        </aside>
+
+        <!-- Right Map Pane -->
+        <main class="map-main-pane">
+            <div id="map"></div>
+        </main>
+
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <!-- Map JS -->
+    <script src="map.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,347 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: #0f172a;
+    color: #333;
+    overflow: hidden;
+}
+
+/* Login Overlay */
+.login-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(15, 23, 42, 0.92);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.login-modal {
+    background-color: #1e293b;
+    border: 1px solid #334155;
+    padding: 35px;
+    border-radius: 12px;
+    width: 400px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    text-align: center;
+    color: white;
+}
+
+.login-icon {
+    font-size: 42px;
+    color: #38bdf8;
+    margin-bottom: 15px;
+}
+
+.login-modal h2 { font-size: 20px; font-weight: 600; margin-bottom: 8px; }
+.login-modal p { color: #94a3b8; font-size: 13px; margin-bottom: 25px; }
+
+.form-group {
+    text-align: left;
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 12px;
+    font-weight: 500;
+    color: #cbd5e1;
+    margin-bottom: 6px;
+}
+
+.form-group select, .form-group input {
+    width: 100%;
+    padding: 10px 12px;
+    background-color: #0f172a;
+    border: 1px solid #475569;
+    border-radius: 6px;
+    color: white;
+    font-size: 13px;
+    outline: none;
+}
+
+.btn-login {
+    width: 100%;
+    background-color: #0284c7;
+    color: white;
+    padding: 11px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.2s;
+}
+
+.btn-login:hover { background-color: #0369a1; }
+
+/* Dashboard App Layout */
+.dashboard-app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.admin-header {
+    background-color: #1e293b;
+    color: white;
+    padding: 12px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #334155;
+    height: 65px;
+}
+
+.logo-area { display: flex; align-items: center; gap: 12px; }
+.logo-area i { font-size: 22px; color: #4f46e5; }
+.logo-area h1 { font-size: 18px; font-weight: 600; }
+
+.header-right { display: flex; gap: 12px; }
+
+.nav-btn {
+    background-color: #0284c7;
+    color: white;
+    padding: 7px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border: none;
+    cursor: pointer;
+}
+.nav-btn.secondary { background-color: #475569; }
+
+.portal-layout {
+    display: flex;
+    height: calc(100vh - 65px);
+}
+
+.portal-sidebar {
+    width: 420px;
+    background-color: #1e293b;
+    border-right: 1px solid #334155;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 20px;
+    overflow-y: auto;
+}
+
+.sidebar-section h3 {
+    color: #f8fafc;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.resources-display-box {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.resource-pill {
+    flex: 1;
+    background-color: #0f172a;
+    border: 1px solid #334155;
+    padding: 12px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.resource-pill i { font-size: 20px; color: #38bdf8; }
+.res-label { display: block; font-size: 11px; color: #94a3b8; }
+.res-value { font-size: 16px; font-weight: 700; color: #fff; }
+
+.btn-attendance {
+    width: 100%;
+    background-color: #334155;
+    color: white;
+    border: 1px solid #475569;
+    padding: 9px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background 0.2s;
+}
+.btn-attendance:hover { background-color: #475569; }
+
+.complaints-list-scroll {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: calc(100vh - 300px);
+}
+
+.station-crime-card {
+    background-color: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    padding: 14px;
+    transition: border 0.2s;
+}
+
+.station-crime-card:hover { border-color: #4f46e5; }
+
+.crime-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.crime-card-top h4 { color: #f8fafc; font-size: 14px; font-weight: 600; }
+
+.badge-assigned {
+    background-color: #312e81;
+    color: #c7d2fe;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+.station-crime-card p {
+    color: #94a3b8;
+    font-size: 12px;
+    margin-bottom: 4px;
+}
+.station-crime-card p b { color: #cbd5e1; }
+
+.crime-action-buttons {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.btn-complete {
+    flex: 1;
+    background-color: #10b981;
+    color: white;
+    border: none;
+    padding: 7px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.btn-complete:hover { background-color: #059669; }
+
+.btn-transfer {
+    flex: 1;
+    background-color: #d97706;
+    color: white;
+    border: none;
+    padding: 7px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.btn-transfer:hover { background-color: #b45309; }
+
+.btn-route {
+    background-color: #0284c7;
+    color: white;
+    border: none;
+    padding: 7px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    cursor: pointer;
+}
+.btn-route:hover { background-color: #0369a1; }
+
+/* Map Pane */
+.portal-map-pane {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #1e293b;
+}
+
+.map-top-bar {
+    background-color: #1e293b;
+    padding: 10px 20px;
+    border-bottom: 1px solid #334155;
+    color: #38bdf8;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+#map {
+    flex: 1;
+    width: 100%;
+}
+
+/* Modals */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(15, 23, 42, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.modal-card {
+    background-color: #1e293b;
+    border: 1px solid #334155;
+    padding: 25px;
+    border-radius: 10px;
+    width: 380px;
+    color: white;
+}
+
+.modal-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+.modal-card p { font-size: 12px; color: #94a3b8; margin-bottom: 18px; }
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn-primary {
+    background-color: #0284c7;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.btn-secondary {
+    background-color: #475569;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.loading-text { color: #94a3b8; font-size: 13px; text-align: center; padding: 20px; }
